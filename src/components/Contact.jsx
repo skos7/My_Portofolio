@@ -5,10 +5,9 @@ import emailjs from 'emailjs-com';
 import videoBackground from '../assets/matrix.mp4';
 
 const Contact = () => {
-    emailjs.init('qm_A_fVXeyL1r74cE');
+    emailjs.init(import.meta.env.VITE_EMAILJS_API_KEY);
     const formRef = useRef(null); // Create a ref for the form
-    const config = require('./config');
-    
+
     const copyToClipboard = (text) => {
         const dummyInput = document.createElement('input');
         dummyInput.value = text;
@@ -22,7 +21,7 @@ const Contact = () => {
         e.preventDefault();
 
         emailjs
-            .sendForm(config.service, config.template, e.target)
+            .sendForm(SERVICE, TEMPLATE, e.target)
             .then((result) => {
                 console.log('Email sent successfully:', result.text);
                 toast.success('Email sent successfully!');
