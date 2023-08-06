@@ -5,7 +5,13 @@ import emailjs from 'emailjs-com';
 import videoBackground from '../assets/matrix.mp4';
 
 const Contact = () => {
-    emailjs.init(import.meta.env.VITE_EMAILJS_API_KEY);
+
+    const serviceId = import.meta.env.VITE_REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_REACT_APP_EMAILJS_TEMPLATE_ID;
+    const userId = import.meta.env.VITE_REACT_APP_EMAILJS_USER_ID;
+
+    emailjs.init(userId);
+
     const formRef = useRef(null); // Create a ref for the form
 
     const copyToClipboard = (text) => {
@@ -21,11 +27,11 @@ const Contact = () => {
         e.preventDefault();
 
         emailjs
-            .sendForm(SERVICE, TEMPLATE, e.target)
+            .sendForm(serviceId, templateId, e.target)
             .then((result) => {
                 console.log('Email sent successfully:', result.text);
                 toast.success('Email sent successfully!');
-                resetForm(); // Reset the form fields
+                resetForm();
             })
             .catch((error) => {
                 console.error('Error sending email:', error);
